@@ -1,0 +1,70 @@
+.form-creation-section,
+.existing-forms-section {
+    margin: 20px 0;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+}
+
+.form-field {
+    margin-bottom: 15px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.form-field input[type="text"] {
+    width: 100%;
+    max-width: 400px;
+}
+
+#fields-container {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+.field-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #fff;
+    border: 1px solid #ddd;
+}
+
+.field-row select,
+.field-row input[type="text"],
+.field-row input[type="number"] {
+    padding: 5px;
+}
+
+.field-row .file-options {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.form-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.remove-field {
+    color: #dc3232;
+}
+
+.wp-list-table td {
+    vertical-align: middle;
+}
+
+.wp-list-table .button {
+    margin-right: 5px;
+}

@@ -1,0 +1,41 @@
+/* assets/css/frontend.css */
+.form-manager-form {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.form-manager-form .form-group {
+    margin-bottom: 15px;
+}
+
+.form-manager-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-manager-form input[type="text"],
+.form-manager-form input[type="email"],
+.form-manager-form textarea {
+     width: 100%;
+     padding: 8px;
+     border: 1px solid #ddd;
+     border-radius: 4px;
+}
+
+.form-manager-form textarea {
+    min-height: 100px;
+}
+
+.form-manager-form button[type="submit"] {
+    background: #0073aa;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.form-manager-form button[type="submit"]:hover {
+    background: #005177;
+}

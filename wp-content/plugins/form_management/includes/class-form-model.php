@@ -4,10 +4,11 @@ class Form_Model
      public static function install()
      {
           global $wpdb;
+
           $charset_collate = $wpdb->get_charset_collate();
 
-          $forms_table = form_manager_table_name('_forms');
-          $submissions_table = form_manager_table_name('_submissions');
+          $forms_table        = form_manager_table_name('_forms');
+          $submissions_table  = form_manager_table_name('_submissions');
 
           $sql_forms = "CREATE TABLE $forms_table (
                id mediumint(9) NOT NULL AUTO_INCREMENT,
@@ -74,7 +75,6 @@ class Form_Model
           );
      }
 
-     
 
      public static function get_submissions($form_id = null)
      {
@@ -185,5 +185,5 @@ class Form_Model
           }
 
           return rmdir($dir);
-     }
+     } 
 }

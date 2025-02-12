@@ -16,13 +16,13 @@ class Form_Controller
                wp_verify_nonce($_POST['form_manager_nonce'], 'form_manager_save')
           ) {
 
-               $form_id = isset($_POST['form_id']) ? intval($_POST['form_id']) : 0;
-               $form = Form_Model::get_form($form_id);
+               $form_id  = isset($_POST['form_id']) ? intval($_POST['form_id']) : 0;
+               $form     = Form_Model::get_form($form_id);
 
                if ($form) {
-                    $fields = json_decode($form->fields, true);
-                    $submission_data = array();
-                    $files = array();
+                    $fields             = json_decode($form->fields, true);
+                    $submission_data    = array();
+                    $files              = array();
 
                     foreach ($fields as $field) {
                          $field_name = $field['name'];

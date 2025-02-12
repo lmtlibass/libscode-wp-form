@@ -26,6 +26,7 @@ class Form_View
                                         <option value="textarea">Zone de texte</option>
                                         <option value="file">Fichier</option>
                                    </select>
+                                   <input type="text" name="field_icon[]" placeholder="icon" >
                                    <input type="text" name="field_label[]" placeholder="Label" required>
                                    <input type="text" name="field_name[]" placeholder="Nom du champ" required>
                                    <div class="file-options" style="display: none;">
@@ -71,16 +72,16 @@ class Form_View
                                              <td>
                                                   <a href="?page=form_manager&view=submissions&form_id=<?php echo esc_attr($form->id); ?>"
                                                        class="button button-secondary">
-                                                       Voir les soumissions
+                                                       Voir données
                                                   </a>
                                                   <a href="?page=form_manager&action=delete_submissions&form_id=<?php echo esc_attr($form->id); ?>"
                                                        class="button button-secondary delete-submissions">
-                                                       Supprimer les soumissions
+                                                       Supprimer données
                                                   </a>
                                                   <a href="?page=form_manager&action=delete_form&form_id=<?php echo esc_attr($form->id); ?>&_wpnonce=<?php echo wp_create_nonce('delete_form_' . $form->id); ?>"
                                                        class="button button-link-delete delete-form"
                                                        onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce formulaire ? Cette action supprimera également toutes les soumissions associées.');">
-                                                       Supprimer le formulaire
+                                                       Supprimer form
                                                   </a>
                                              </td>
                                         </tr>
@@ -113,6 +114,7 @@ class Form_View
 
                <?php foreach ($fields as $field): ?>
                     <div class="form-group">
+                         <span><?php echo esc_html($field['icon']); ?><span>
                          <label><?php echo esc_html($field['label']); ?></label>
                          <?php
                          switch ($field['type']) {

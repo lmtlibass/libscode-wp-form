@@ -1,25 +1,36 @@
 jQuery(document).ready(function ($) {
+    // Fonction pour générer le HTML d'une ligne de champ
     function getFieldRowHtml() {
         return `
             <div class="field-row">
-                <select name="field_type[]" class="field-type-select">
-                    <option value="text">Texte</option>
-                    <option value="email">Email</option>
-                    <option value="textarea">Zone de texte</option>
-                    <option value="file">Fichier</option>
-                </select>
-                <input type="text" name="field_label[]" placeholder="Label" required>
-                <input type="text" name="field_name[]" placeholder="Nom du champ" required>
-                <div class="file-options" style="display: none;">
-                    <select name="file_type[]">
-                        <option value="all">Tous les fichiers</option>
-                        <option value="image/*">Images uniquement</option>
-                        <option value="application/pdf">PDF uniquement</option>
+                <div class="row-inputs">
+                    <select name="field_type[]" class="field-type-select">
+                        <option value="text">Texte</option>
+                        <option value="email">Email</option>
+                        <option value="textarea">Zone de texte</option>
+                        <option value="file">Fichier</option>
+                        <option value="date">Date</option>
                     </select>
-                    <input type="number" name="max_file_size[]" placeholder="Taille max (MB)" value="2">
+                    <input type="text" name="field_desc[]" placeholder="Description">
+                    <input type="text" name="field_exempl[]" placeholder="Texte explicatif">
+                    <input type="text" name="field_icon[]" placeholder="Icon">
                 </div>
-                <label><input type="checkbox" name="field_required[]"> Requis</label>
-                <button type="button" class="remove-field button-secondary">Supprimer</button>
+                <div class="row-inputs">
+                    <input type="text" name="field_label[]" placeholder="Label" required>
+                    <input type="text" name="field_name[]" placeholder="Nom du champ" required>
+                    <div class="file-options" style="display: none;">
+                        <select name="file_type[]">
+                            <option value="all">Tous les fichiers</option>
+                            <option value="image/*">Images uniquement</option>
+                            <option value="application/pdf">PDF uniquement</option>
+                        </select>
+                        <input type="number" name="max_file_size[]" placeholder="Taille max (MB)" value="2">
+                    </div>
+                    <label>
+                        <input type="checkbox" name="field_required[]"> Requis
+                    </label>
+                    <button type="button" class="remove-field button-secondary">Supprimer</button>
+                </div>
             </div>
         `;
     }
@@ -55,9 +66,9 @@ jQuery(document).ready(function ($) {
             var fieldName = $(this)
                 .val()
                 .toLowerCase()
-                .replace(/[^a-z0-9]/g, "_")
-                .replace(/_+/g, "_")
-                .replace(/^_|_$/g, "");
+                .replace(/[^a-z0-9]/g, "_") // Remplacer les caractères spéciaux par "_"
+                .replace(/_+/g, "_") // Supprimer les underscores multiples
+                .replace(/^_|_$/g, ""); // Supprimer les underscores en début et fin
             $nameInput.val(fieldName);
         }
     });

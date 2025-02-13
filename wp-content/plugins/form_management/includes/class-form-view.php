@@ -26,12 +26,13 @@ class Form_View
                                              <option value="email">Email</option>
                                              <option value="textarea">Zone de texte</option>
                                              <option value="file">Fichier</option>
+                                             <option value="date">Date</option>
                                         </select>
                                         <input type="text" name="field_desc[]" placeholder="description">
                                         <input type="text" name="field_exempl[]" placeholder="texte explicatif">
                                         <input type="text" name="field_icon[]" placeholder="icon">
                                    </div>
-                                   <div class="row-input">
+                                   <div class="row-inputs">
                                         <input type="text" name="field_label[]" placeholder="Label" required>
                                         <input type="text" name="field_name[]" placeholder="Nom du champ" required>
                                         <div class="file-options" style="display: none;">
@@ -122,13 +123,14 @@ class Form_View
                     <div class="libscode-form-group">
                          <label>
                               <?php echo esc_html($field['label']); ?>
-                              <?php if (isset($field['desc'])): ?>
-                                   <span class="libscode-description-input"> <?php echo esc_html($field['desc']) ?></span>
-                              <?php endif; ?>
+
                               <?php if (isset($field['required']) && $field['required']): ?>
                                    <span class="libscode-required">*</span>
                               <?php endif; ?>
                          </label>
+                         <?php if (isset($field['desc'])): ?>
+                              <span class="libscode-description-input"> <?php echo esc_html($field['desc']) ?></span>
+                         <?php endif; ?>
                          <div class="libscode-input-wrapper">
                               <?php
                               switch ($field['type']) {
@@ -137,20 +139,26 @@ class Form_View
                                         echo '<input type="text" name="' . esc_attr($field['name']) . '" ' .
                                              (isset($field['required']) && $field['required'] ? 'required' : '') .
                                              ' placeholder="">';
-                                        echo (isset($field['exempl'])) ? '-> Exemple : ' . esc_attr($field['exempl']) : '';
+                                        echo (isset($field['exempl'])) ? '<span class="input-exemple"> - Exemple : ' . esc_attr($field['exempl']) . '</span>' : '';
                                         break;
                                    case 'email':
                                         echo '<span class="libscode-input-icon"><i class="fas fa-arrow-right"></i></span>';
                                         echo '<input type="email" name="' . esc_attr($field['name']) . '" ' .
                                              (isset($field['required']) && $field['required'] ? 'required' : '') .
                                              ' placeholder="">';
-                                        echo (isset($field['exempl'])) ? '-> Exemple : ' . esc_attr($field['exempl']) : '';
+                                        echo (isset($field['exempl'])) ? '<span class="input-exemple"> - Exemple : ' . esc_attr($field['exempl']) . '</span>' : '';
+                                        break;
+                                   case 'date':
+                                        echo '<input type="date" name="' . esc_attr($field['name']) . '" ' .
+                                             (isset($field['required']) && $field['required'] ? 'required' : '') .
+                                             ' placeholder="">';
+                                        echo (isset($field['exempl'])) ? '<span class="input-exemple"> - Exemple : ' . esc_attr($field['exempl']) . '</span>' : '';
                                         break;
                                    case 'textarea':
                                         echo '<textarea name="' . esc_attr($field['name']) . '" ' .
                                              (isset($field['required']) && $field['required'] ? 'required' : '') .
                                              ' placeholder=""></textarea>';
-                                        echo (isset($field['exempl'])) ? '-> Exemple : ' . esc_attr($field['exempl']) : '';
+                                        echo (isset($field['exempl'])) ? '<span class="input-exemple"> - Exemple : ' . esc_attr($field['exempl']) . '</span>' : '';
                                         break;
                                    case 'file':
                                         $accept = isset($field['file_type']) && $field['file_type'] !== 'all' ?
@@ -158,7 +166,7 @@ class Form_View
                                         echo '<input type="file" name="' . esc_attr($field['name']) . '" ' .
                                              $accept . ' ' .
                                              (isset($field['required']) && $field['required'] ? 'required' : '') . '>';
-                                        echo (isset($field['exempl'])) ? '-> Exemple : ' . esc_attr($field['exempl']) : '';
+                                        echo (isset($field['exempl'])) ? '<span class="input-exemple"> - Exemple : ' . esc_attr($field['exempl']) . '</span>' : '';
                                         if (isset($field['max_file_size'])) {
                                              echo '<p class="libscode-description">Taille maximale: ' .
                                                   esc_html($field['max_file_size']) . 'MB</p>';
@@ -169,7 +177,7 @@ class Form_View
                          </div>
                     </div>
                <?php endforeach; ?>
-               <button type="libscode-form-submit">Envoyer</button>
+               <button type="submit" class="libscode-form-submit">Envoyer</button>
           </form>
      <?php
           return ob_get_clean();

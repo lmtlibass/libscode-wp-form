@@ -40,15 +40,28 @@ class Form_Manager
                FORM_MANAGER_DB_VERSION,
                true
           );
+
+          error_log(plugins_url('assets/css/frontend.css', dirname(__FILE__, 2)));
+
      }
+
+
 
      public function enqueue_frontend_scripts()
      {
           wp_enqueue_style(
                'form-manager-frontend',
-               FORM_MANAGER_URL . 'assets/css/frontend.css',
+               FORM_MANAGER_URL . 'assets/css/frontend.css', // Utilisez FORM_MANAGER_URL
                array(),
-               FORM_MANAGER_DB_VERSION
+               '1.0'
+          );
+
+          wp_enqueue_style(
+               'font-awesome',
+               'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css',
+               array(),
+               '6.0.0'
           );
      }
+
 }

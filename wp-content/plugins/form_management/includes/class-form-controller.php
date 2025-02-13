@@ -84,10 +84,13 @@ class Form_Controller
                     $fields = array();
                     for ($i = 0; $i < count($_POST['field_type']); $i++) {
                          $fields[] = array(
-                              'type' => sanitize_text_field($_POST['field_type'][$i]),
-                              'label' => sanitize_text_field($_POST['field_label'][$i]),
-                              'name' => sanitize_text_field($_POST['field_name'][$i]),
-                              'required' => isset($_POST['field_required'][$i])
+                              'desc'         =>sanitize_text_field($_POST['field_desc'][$i]),
+                              'exempl'       =>sanitize_text_field($_POST['field_exempl'][$i]),
+                              'icon'         => sanitize_text_field($_POST['field_icon'][$i]),
+                              'type'         => sanitize_text_field($_POST['field_type'][$i]),
+                              'label'        => sanitize_text_field($_POST['field_label'][$i]),
+                              'name'         => sanitize_text_field($_POST['field_name'][$i]),
+                              'required'     => isset($_POST['field_required'][$i])
                          );
                     }
 

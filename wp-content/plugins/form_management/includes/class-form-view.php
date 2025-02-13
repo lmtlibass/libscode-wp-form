@@ -20,27 +20,33 @@ class Form_View
                          <div id="fields-container">
                               <h3>Champs du formulaire</h3>
                               <div class="field-row">
-                                   <select name="field_type[]" class="field-type-select">
-                                        <option value="text">Texte</option>
-                                        <option value="email">Email</option>
-                                        <option value="textarea">Zone de texte</option>
-                                        <option value="file">Fichier</option>
-                                   </select>
-                                   <input type="text" name="field_icon[]" placeholder="icon" >
-                                   <input type="text" name="field_label[]" placeholder="Label" required>
-                                   <input type="text" name="field_name[]" placeholder="Nom du champ" required>
-                                   <div class="file-options" style="display: none;">
-                                        <select name="file_type[]">
-                                             <option value="all">Tous les fichiers</option>
-                                             <option value="image/*">Images uniquement</option>
-                                             <option value="application/pdf">PDF uniquement</option>
+                                   <div class="row-inputs">
+                                        <select name="field_type[]" class="field-type-select">
+                                             <option value="text">Texte</option>
+                                             <option value="email">Email</option>
+                                             <option value="textarea">Zone de texte</option>
+                                             <option value="file">Fichier</option>
                                         </select>
-                                        <input type="number" name="max_file_size[]" placeholder="Taille max (MB)" value="2">
+                                        <input type="text" name="field_desc[]" placeholder="description">
+                                        <input type="text" name="field_exempl[]" placeholder="texte explicatif">
+                                        <input type="text" name="field_icon[]" placeholder="icon">
                                    </div>
-                                   <label>
-                                        <input type="checkbox" name="field_required[]"> Requis
-                                   </label>
-                                   <button type="button" class="remove-field button-secondary">Supprimer</button>
+                                   <div class="row-input">
+                                        <input type="text" name="field_label[]" placeholder="Label" required>
+                                        <input type="text" name="field_name[]" placeholder="Nom du champ" required>
+                                        <div class="file-options" style="display: none;">
+                                             <select name="file_type[]">
+                                                  <option value="all">Tous les fichiers</option>
+                                                  <option value="image/*">Images uniquement</option>
+                                                  <option value="application/pdf">PDF uniquement</option>
+                                             </select>
+                                             <input type="number" name="max_file_size[]" placeholder="Taille max (MB)" value="2">
+                                        </div>
+                                        <label>
+                                             <input type="checkbox" name="field_required[]"> Requis
+                                        </label>
+                                        <button type="button" class="remove-field button-secondary">Supprimer</button>
+                                   </div>
                               </div>
                          </div>
 
@@ -108,44 +114,62 @@ class Form_View
 
           ob_start();
      ?>
-          <form method="post" class="form-manager-form" enctype="multipart/form-data">
+          <form method="post" class="libscode-form-manager-form" enctype="multipart/form-data">
                <?php wp_nonce_field('form_manager_save', 'form_manager_nonce'); ?>
                <input type="hidden" name="form_id" value="<?php echo esc_attr($form_id); ?>">
 
                <?php foreach ($fields as $field): ?>
-                    <div class="form-group">
-                         <span><?php echo esc_html($field['icon']); ?><span>
-                         <label><?php echo esc_html($field['label']); ?></label>
-                         <?php
-                         switch ($field['type']) {
-                              case 'text':
-                                   echo '<input type="text" name="' . esc_attr($field['name']) . '" ' .
-                                        (isset($field['required']) && $field['required'] ? 'required' : '') . '>';
-                                   break;
-                              case 'email':
-                                   echo '<input type="email" name="' . esc_attr($field['name']) . '" ' .
-                                        (isset($field['required']) && $field['required'] ? 'required' : '') . '>';
-                                   break;
-                              case 'textarea':
-                                   echo '<textarea name="' . esc_attr($field['name']) . '" ' .
-                                        (isset($field['required']) && $field['required'] ? 'required' : '') . '></textarea>';
-                                   break;
-                              case 'file':
-                                   $accept = isset($field['file_type']) && $field['file_type'] !== 'all' ?
-                                        'accept="' . esc_attr($field['file_type']) . '"' : '';
-                                   echo '<input type="file" name="' . esc_attr($field['name']) . '" ' .
-                                        $accept . ' ' .
-                                        (isset($field['required']) && $field['required'] ? 'required' : '') . '>';
-                                   if (isset($field['max_file_size'])) {
-                                        echo '<p class="description">Taille maximale: ' .
-                                             esc_html($field['max_file_size']) . 'MB</p>';
-                                   }
-                                   break;
-                         }
-                         ?>
+                    <div class="libscode-form-group">
+                         <label>
+                              <?php echo esc_html($field['label']); ?>
+                              <?php if (isset($field['desc'])): ?>
+                                   <span class="libscode-description-input"> <?php echo esc_html($field['desc']) ?></span>
+                              <?php endif; ?>
+                              <?php if (isset($field['required']) && $field['required']): ?>
+                                   <span class="libscode-required">*</span>
+                              <?php endif; ?>
+                         </label>
+                         <div class="libscode-input-wrapper">
+                              <?php
+                              switch ($field['type']) {
+                                   case 'text':
+                                        echo '<span class="libscode-input-icon"><i class="fas fa-arrow-right"></i></span>';
+                                        echo '<input type="text" name="' . esc_attr($field['name']) . '" ' .
+                                             (isset($field['required']) && $field['required'] ? 'required' : '') .
+                                             ' placeholder="">';
+                                        echo (isset($field['exempl'])) ? '-> Exemple : ' . esc_attr($field['exempl']) : '';
+                                        break;
+                                   case 'email':
+                                        echo '<span class="libscode-input-icon"><i class="fas fa-arrow-right"></i></span>';
+                                        echo '<input type="email" name="' . esc_attr($field['name']) . '" ' .
+                                             (isset($field['required']) && $field['required'] ? 'required' : '') .
+                                             ' placeholder="">';
+                                        echo (isset($field['exempl'])) ? '-> Exemple : ' . esc_attr($field['exempl']) : '';
+                                        break;
+                                   case 'textarea':
+                                        echo '<textarea name="' . esc_attr($field['name']) . '" ' .
+                                             (isset($field['required']) && $field['required'] ? 'required' : '') .
+                                             ' placeholder=""></textarea>';
+                                        echo (isset($field['exempl'])) ? '-> Exemple : ' . esc_attr($field['exempl']) : '';
+                                        break;
+                                   case 'file':
+                                        $accept = isset($field['file_type']) && $field['file_type'] !== 'all' ?
+                                             'accept="' . esc_attr($field['file_type']) . '"' : '';
+                                        echo '<input type="file" name="' . esc_attr($field['name']) . '" ' .
+                                             $accept . ' ' .
+                                             (isset($field['required']) && $field['required'] ? 'required' : '') . '>';
+                                        echo (isset($field['exempl'])) ? '-> Exemple : ' . esc_attr($field['exempl']) : '';
+                                        if (isset($field['max_file_size'])) {
+                                             echo '<p class="libscode-description">Taille maximale: ' .
+                                                  esc_html($field['max_file_size']) . 'MB</p>';
+                                        }
+                                        break;
+                              }
+                              ?>
+                         </div>
                     </div>
                <?php endforeach; ?>
-               <button type="submit">Envoyer</button>
+               <button type="libscode-form-submit">Envoyer</button>
           </form>
      <?php
           return ob_get_clean();

@@ -32,6 +32,7 @@ function form_manager_activate()
 }
 register_activation_hook(__FILE__, 'form_manager_activate');
 
+
 function run_form_manager()
 {
     $plugin = new Form_Manager();
